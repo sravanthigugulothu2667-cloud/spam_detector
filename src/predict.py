@@ -1,10 +1,10 @@
+import os
 import joblib
-from preprocess import clean_text
 
-model=joblib.load("../model.pkl")
-vectorizer=joblib.load("../vectorizer.pkl")
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-text=input("Enter message: ")
-clean=clean_text(text)
-X=vectorizer.transform([clean])
-print("Prediction:",model.predict(X)[0])
+model_path = os.path.join(BASE_DIR, "model.pkl")
+vectorizer_path = os.path.join(BASE_DIR, "vectorizer.pkl")
+
+model = joblib.load(model_path)
+vectorizer = joblib.load(vectorizer_path)
