@@ -1,18 +1,24 @@
-import re
 import nltk
-from nltk.corpus import stopwords
-from nltk.stem import PorterStemmer
+import string
 from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
 
-nltk.download("punkt")
-nltk.download("stopwords")
-
-stemmer = PorterStemmer()
-stops = set(stopwords.words("english"))
+nltk.download('punkt')
+nltk.download('punkt_tab')
+nltk.download('stopwords')
 
 def clean_text(text):
-    text = text.lower()
-    text = re.sub(r"[^a-z\s]", " ", text)
     words = word_tokenize(text)
-    words = [stemmer.stem(w) for w in words if w not in stops]
+
+    words = [
+        word.lower()
+        for word in words
+        if word.isalnum()
+    ]
+
+    words = [
+        word for word in words
+        if word not in stopwords.words('english')
+    ]
+
     return " ".join(words)
